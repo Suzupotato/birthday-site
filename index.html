@@ -6,12 +6,22 @@
 
   <title>For You</title>
 
-  <!-- ポップなフォント -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+
+  <!-- 筆記体 + ポップフォント -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Mochiy+Pop+One&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
+
+    /* =========================
+       基本設定
+       ========================= */
+
     * {
       box-sizing: border-box;
     }
@@ -22,6 +32,7 @@
       padding: 0;
       width: 100%;
       min-height: 100%;
+
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -29,6 +40,7 @@
         "Hiragino Kaku Gothic ProN",
         "Yu Gothic",
         sans-serif;
+
       background: #fff;
       color: #222;
     }
@@ -40,6 +52,7 @@
     .screen {
       width: 100%;
       min-height: 100svh;
+
       display: flex;
       justify-content: center;
       align-items: center;
@@ -53,6 +66,7 @@
 
     /* =========================
        1ページ目
+       CD + Dear...
        ========================= */
 
     #stage1 {
@@ -62,11 +76,15 @@
 
     .cd-button {
       display: block;
+
       width: min(72vw, 340px);
       height: min(72vw, 340px);
+
       border-radius: 50%;
       cursor: pointer;
+
       -webkit-tap-highlight-color: transparent;
+
       transition: transform .15s ease;
     }
 
@@ -76,21 +94,35 @@
 
     .cd-button img {
       display: block;
+
       width: 100%;
       height: 100%;
+
       object-fit: contain;
     }
 
-    .small-text {
+
+    /* =========================
+       筆記体テキスト
+       ========================= */
+
+    .script-text {
       margin-top: 24px;
-      font-size: 12px;
-      letter-spacing: .15em;
-      color: #999;
+
+      font-family: "Dancing Script", cursive;
+
+      font-size: 24px;
+      font-weight: 500;
+
+      letter-spacing: .02em;
+
+      color: #777;
     }
 
 
     /* =========================
        2ページ目
+       thank you
        ========================= */
 
     #stage2 {
@@ -101,11 +133,17 @@
     .stage2-main {
       min-height: 105svh;
       width: 100%;
+
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
     }
+
+
+    /* =========================
+       戻る + なんもねぇ
+       ========================= */
 
     .secret-area {
       width: 100%;
@@ -119,23 +157,35 @@
       position: relative;
     }
 
+
     /* 戻る */
+
     .back-link {
       color: #777;
+
       font-size: 14px;
+
       text-decoration: underline;
       text-underline-offset: 4px;
+
       cursor: pointer;
+
       -webkit-tap-highlight-color: transparent;
+
       margin-bottom: 8px;
     }
 
+
     /* なんもねぇ */
+
     .secret-link {
       color: #777;
+
       font-size: 3px;
+
       text-decoration: underline;
       text-underline-offset: 3px;
+
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -146,29 +196,41 @@
 
     #stage3 {
       min-height: 100svh;
+
       position: relative;
+
       text-align: center;
     }
 
+
+    /* 誕生日メッセージ */
+
     .birthday-message {
       font-family: "Mochiy Pop One", sans-serif;
+
       font-size: clamp(28px, 8vw, 42px);
+
       font-weight: 400;
+
       letter-spacing: .08em;
+
       animation: appear 1.2s ease forwards;
     }
 
+
     /* 3ページ目の戻る */
+
     .stage3-back {
       margin-top: 40px;
     }
 
 
     /* =========================
-       アニメーション
+       出現アニメーション
        ========================= */
 
     @keyframes appear {
+
       from {
         opacity: 0;
         transform: translateY(10px);
@@ -178,6 +240,7 @@
         opacity: 1;
         transform: translateY(0);
       }
+
     }
 
 
@@ -193,11 +256,13 @@
     html {
       scrollbar-width: none;
     }
+
   </style>
 </head>
 
 
 <body>
+
 
   <!-- =========================
        1ページ目
@@ -206,14 +271,20 @@
   <section id="stage1" class="screen">
 
     <a id="mainLink" class="cd-button" href="#">
-      <img src="CD.PNG" alt="Play">
+
+      <img
+        src="CD.PNG"
+        alt="Play"
+      >
+
     </a>
 
-    <div class="small-text">
-      FOR YOU
+    <div class="script-text">
+      Dear...
     </div>
 
   </section>
+
 
 
   <!-- =========================
@@ -222,10 +293,11 @@
 
   <section id="stage2" class="hidden">
 
+
     <div class="stage2-main">
 
-      <div class="small-text">
-        FOR YOU
+      <div class="script-text">
+        thank you
       </div>
 
     </div>
@@ -233,17 +305,33 @@
 
     <div class="secret-area">
 
-      <a id="backLink2" class="back-link hidden" href="#">
+
+      <!-- 戻る -->
+
+      <a
+        id="backLink2"
+        class="back-link hidden"
+        href="#"
+      >
         戻る
       </a>
 
-      <a id="secretLink" class="secret-link" href="#">
+
+      <!-- 秘密の入口 -->
+
+      <a
+        id="secretLink"
+        class="secret-link"
+        href="#"
+      >
         なんもねぇ
       </a>
+
 
     </div>
 
   </section>
+
 
 
   <!-- =========================
@@ -252,18 +340,27 @@
 
   <section id="stage3" class="screen hidden">
 
+
     <div class="birthday-message">
       誕生日おめでとう！
     </div>
 
-    <a id="backLink3" class="back-link stage3-back hidden" href="#">
+
+    <a
+      id="backLink3"
+      class="back-link stage3-back hidden"
+      href="#"
+    >
       戻る
     </a>
+
 
   </section>
 
 
+
   <script>
+
 
     /* =========================
        YouTube URL
@@ -276,27 +373,46 @@
       "https://youtu.be/aRiVUVNUhIs?si=hcRCJKqANeBVuRmt";
 
 
+
     /* =========================
        状態保存用
        ========================= */
 
-    const MAIN_PLAYED = "birthday_main_played";
-    const SECRET_PLAYED = "birthday_secret_played";
+    const MAIN_PLAYED =
+      "birthday_main_played";
+
+    const SECRET_PLAYED =
+      "birthday_secret_played";
+
 
 
     /* =========================
        要素取得
        ========================= */
 
-    const stage1 = document.getElementById("stage1");
-    const stage2 = document.getElementById("stage2");
-    const stage3 = document.getElementById("stage3");
+    const stage1 =
+      document.getElementById("stage1");
 
-    const mainLink = document.getElementById("mainLink");
-    const secretLink = document.getElementById("secretLink");
+    const stage2 =
+      document.getElementById("stage2");
 
-    const backLink2 = document.getElementById("backLink2");
-    const backLink3 = document.getElementById("backLink3");
+    const stage3 =
+      document.getElementById("stage3");
+
+
+    const mainLink =
+      document.getElementById("mainLink");
+
+    const secretLink =
+      document.getElementById("secretLink");
+
+
+    const backLink2 =
+      document.getElementById("backLink2");
+
+    const backLink3 =
+      document.getElementById("backLink3");
+
 
 
     /* =========================
@@ -305,21 +421,29 @@
 
     function render() {
 
+
       const mainPlayed =
         localStorage.getItem(MAIN_PLAYED) === "true";
+
 
       const secretPlayed =
         localStorage.getItem(SECRET_PLAYED) === "true";
 
 
-      /* 全部隠す */
+
+      /* 全画面を一旦非表示 */
 
       stage1.classList.add("hidden");
+
       stage2.classList.add("hidden");
+
       stage3.classList.add("hidden");
 
+
       backLink2.classList.add("hidden");
+
       backLink3.classList.add("hidden");
+
 
 
       /* =========================
@@ -329,12 +453,14 @@
       if (secretPlayed) {
 
         stage3.classList.remove("hidden");
+
         backLink3.classList.remove("hidden");
 
         document.body.style.overflow = "hidden";
 
         return;
       }
+
 
 
       /* =========================
@@ -344,12 +470,14 @@
       if (mainPlayed) {
 
         stage2.classList.remove("hidden");
+
         backLink2.classList.remove("hidden");
 
         document.body.style.overflowY = "auto";
 
         return;
       }
+
 
 
       /* =========================
@@ -359,97 +487,155 @@
       stage1.classList.remove("hidden");
 
       document.body.style.overflow = "hidden";
+
     }
+
 
 
     /* =========================
        CDを押したとき
        ========================= */
 
-    mainLink.addEventListener("click", function(e) {
+    mainLink.addEventListener(
+      "click",
+      function(e) {
 
-      e.preventDefault();
+        e.preventDefault();
 
-      localStorage.setItem(MAIN_PLAYED, "true");
 
-      window.location.href = PLAYLIST_URL;
+        localStorage.setItem(
+          MAIN_PLAYED,
+          "true"
+        );
 
-    });
+
+        window.location.href =
+          PLAYLIST_URL;
+
+      }
+    );
+
 
 
     /* =========================
        なんもねぇ
        ========================= */
 
-    secretLink.addEventListener("click", function(e) {
+    secretLink.addEventListener(
+      "click",
+      function(e) {
 
-      e.preventDefault();
+        e.preventDefault();
 
-      localStorage.setItem(SECRET_PLAYED, "true");
 
-      window.location.href = SECRET_URL;
+        localStorage.setItem(
+          SECRET_PLAYED,
+          "true"
+        );
 
-    });
+
+        window.location.href =
+          SECRET_URL;
+
+      }
+    );
+
 
 
     /* =========================
-       戻る
+       最初に戻る
        ========================= */
 
     function goBack() {
 
-      localStorage.removeItem(MAIN_PLAYED);
-      localStorage.removeItem(SECRET_PLAYED);
+
+      localStorage.removeItem(
+        MAIN_PLAYED
+      );
+
+
+      localStorage.removeItem(
+        SECRET_PLAYED
+      );
+
 
       window.scrollTo(0, 0);
 
+
       render();
+
     }
 
 
-    backLink2.addEventListener("click", function(e) {
 
-      e.preventDefault();
+    /* 2ページ目の戻る */
 
-      goBack();
+    backLink2.addEventListener(
+      "click",
+      function(e) {
 
-    });
+        e.preventDefault();
+
+        goBack();
+
+      }
+    );
 
 
-    backLink3.addEventListener("click", function(e) {
 
-      e.preventDefault();
+    /* 3ページ目の戻る */
 
-      goBack();
+    backLink3.addEventListener(
+      "click",
+      function(e) {
 
-    });
+        e.preventDefault();
+
+        goBack();
+
+      }
+    );
+
 
 
     /* =========================
        YouTubeから戻ってきたとき
        ========================= */
 
-    window.addEventListener("pageshow", function() {
-
-      render();
-
-    });
-
-
-    document.addEventListener("visibilitychange", function() {
-
-      if (document.visibilityState === "visible") {
+    window.addEventListener(
+      "pageshow",
+      function() {
 
         render();
 
       }
+    );
 
-    });
 
 
-    /* 初回表示 */
+    document.addEventListener(
+      "visibilitychange",
+      function() {
+
+        if (
+          document.visibilityState === "visible"
+        ) {
+
+          render();
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================
+       初回表示
+       ========================= */
 
     render();
+
 
   </script>
 
