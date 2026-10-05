@@ -40,12 +40,16 @@
       flex-direction: column;
     }
 
+    .hidden {
+      display: none !important;
+    }
+
     /* =========================
        Stage 1
-       CD
        ========================= */
 
     #stage1 {
+      min-height: 100svh;
       overflow: hidden;
     }
 
@@ -82,31 +86,38 @@
        ========================= */
 
     #stage2 {
-      min-height: 125svh;
-      justify-content: flex-start;
+      min-height: 145svh;
+      position: relative;
     }
 
     .stage2-main {
-      min-height: 92svh;
+      min-height: 105svh;
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
     }
 
+    /*
+       「なんもねぇ」はかなり小さく。
+       今までの「なんもねぇ」より小さくして、
+       見つけた時にちょっと嬉しいくらいのサイズ。
+    */
     .secret-area {
       width: 100%;
-      height: 33svh;
+      height: 40svh;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
+      padding-top: 8svh;
     }
 
     .secret-link {
       color: #777;
-      font-size: 14px;
+      font-size: 10px;
       text-decoration: underline;
-      text-underline-offset: 4px;
+      text-underline-offset: 3px;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -115,6 +126,8 @@
        ========================= */
 
     #stage3 {
+      min-height: 100svh;
+      position: relative;
       text-align: center;
     }
 
@@ -138,14 +151,29 @@
     }
 
     /* =========================
-       表示切り替え
+       戻る
+       Stage 2 / Stage 3 共通
        ========================= */
 
-    .hidden {
-      display: none !important;
+    .back-link {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+
+      color: #777;
+      font-size: 14px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+
+      z-index: 100;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* スクロールバーを目立たせない */
+    /* =========================
+       スクロールバー
+       ========================= */
+
     ::-webkit-scrollbar {
       width: 0;
       height: 0;
@@ -157,17 +185,18 @@
   </style>
 </head>
 
+
 <body>
 
   <!-- =========================
        Stage 1
-       最初の画面
+       最初のCD画面
        ========================= -->
 
   <section id="stage1" class="screen">
 
     <a id="mainLink" class="cd-button" href="#">
-      <img src="cd.png" alt="Play">
+      <img src="CD.PNG" alt="Play">
     </a>
 
     <div class="small-text">
@@ -179,7 +208,7 @@
 
   <!-- =========================
        Stage 2
-       プレイリストから戻ってきた後
+       プレイリストから戻った後
        ========================= -->
 
   <section id="stage2" class="hidden">
@@ -191,9 +220,11 @@
     </div>
 
     <div class="secret-area">
+
       <a id="secretLink" class="secret-link" href="#">
         なんもねぇ
       </a>
+
     </div>
 
   </section>
@@ -201,7 +232,7 @@
 
   <!-- =========================
        Stage 3
-       なんもねぇから戻ってきた後
+       なんもねぇから戻った後
        ========================= -->
 
   <section id="stage3" class="screen hidden">
@@ -211,6 +242,15 @@
     </div>
 
   </section>
+
+
+  <!-- =========================
+       共通の「戻る」
+       ========================= -->
+
+  <a id="backLink" class="back-link hidden" href="#">
+    戻る
+  </a>
 
 
   <script>
@@ -227,11 +267,12 @@
 
 
     /* ==========================================
-       ステージ管理
+       ステージ管理用
        ========================================== */
 
     const MAIN_PLAYED = "birthday_main_played";
     const SECRET_PLAYED = "birthday_secret_played";
+
 
     const stage1 = document.getElementById("stage1");
     const stage2 = document.getElementById("stage2");
@@ -239,7 +280,12 @@
 
     const mainLink = document.getElementById("mainLink");
     const secretLink = document.getElementById("secretLink");
+    const backLink = document.getElementById("backLink");
 
+
+    /* ==========================================
+       表示切り替え
+       ========================================== */
 
     function render() {
 
@@ -250,39 +296,65 @@
         localStorage.getItem(SECRET_PLAYED) === "true";
 
 
+      /* いったん全部隠す */
+
       stage1.classList.add("hidden");
       stage2.classList.add("hidden");
       stage3.classList.add("hidden");
+      backLink.classList.add("hidden");
 
+
+      /* =========================
+         Stage 3
+         ========================= */
 
       if (secretPlayed) {
 
-        // 2回目に戻ってきた
         stage3.classList.remove("hidden");
+        backLink.classList.remove("hidden");
+
         document.body.style.overflow = "hidden";
 
-      } else if (mainPlayed) {
+        return;
+      }
 
-        // 最初のプレイリストから戻ってきた
+
+      /* =========================
+         Stage 2
+         ========================= */
+
+      if (mainPlayed) {
+
         stage2.classList.remove("hidden");
+        backLink.classList.remove("hidden");
+
         document.body.style.overflowY = "auto";
 
-      } else {
-
-        // 初回
-        stage1.classList.remove("hidden");
-        document.body.style.overflow = "hidden";
+        return;
       }
+
+
+      /* =========================
+         Stage 1
+         ========================= */
+
+      stage1.classList.remove("hidden");
+
+      document.body.style.overflow = "hidden";
     }
 
 
     /* ==========================================
-       メインプレイリスト
+       CD → YouTubeプレイリスト
        ========================================== */
 
     mainLink.addEventListener("click", function(event) {
 
       event.preventDefault();
+
+      /*
+         YouTubeへ行く前にステージ1クリアを記録
+      */
 
       localStorage.setItem(MAIN_PLAYED, "true");
 
@@ -292,12 +364,16 @@
 
 
     /* ==========================================
-       なんもねぇ
+       なんもねぇ → YouTube
        ========================================== */
 
     secretLink.addEventListener("click", function(event) {
 
       event.preventDefault();
+
+      /*
+         YouTubeへ行く前にステージ2クリアを記録
+      */
 
       localStorage.setItem(SECRET_PLAYED, "true");
 
@@ -307,10 +383,60 @@
 
 
     /* ==========================================
-       YouTubeから戻ってきた時も再描画
+       戻る
        ========================================== */
 
-    window.addEventListener("pageshow", render);
+    backLink.addEventListener("click", function(event) {
+
+      event.preventDefault();
+
+      /*
+         進行状況を全部リセット
+      */
+
+      localStorage.removeItem(MAIN_PLAYED);
+      localStorage.removeItem(SECRET_PLAYED);
+
+      /*
+         ページを一番上へ
+      */
+
+      window.scrollTo(0, 0);
+
+      /*
+         最初のCD画面へ
+      */
+
+      render();
+
+    });
+
+
+    /* ==========================================
+       YouTubeなど外部ページから戻ってきた時
+       ========================================== */
+
+    window.addEventListener("pageshow", function() {
+      render();
+    });
+
+
+    /*
+       Safari / iPhoneでページが再表示された時も確認
+    */
+
+    document.addEventListener("visibilitychange", function() {
+
+      if (document.visibilityState === "visible") {
+        render();
+      }
+
+    });
+
+
+    /* ==========================================
+       初回表示
+       ========================================== */
 
     render();
 
