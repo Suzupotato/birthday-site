@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>For You</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+                   "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      background: #ffffff;
+      color: #222;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       共通
+       ========================= */
+
+    .screen {
+      width: 100%;
+      min-height: 100svh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    /* =========================
+       Stage 1
+       CD
+       ========================= */
+
+    #stage1 {
+      overflow: hidden;
+    }
+
+    .cd-button {
+      display: block;
+      width: min(72vw, 340px);
+      height: min(72vw, 340px);
+      border-radius: 50%;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.15s ease;
+    }
+
+    .cd-button:active {
+      transform: scale(0.96);
+    }
+
+    .cd-button img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .small-text {
+      margin-top: 24px;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: #999;
+    }
+
+    /* =========================
+       Stage 2
+       ========================= */
+
+    #stage2 {
+      min-height: 125svh;
+      justify-content: flex-start;
+    }
+
+    .stage2-main {
+      min-height: 92svh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .secret-area {
+      width: 100%;
+      height: 33svh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .secret-link {
+      color: #777;
+      font-size: 14px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* =========================
+       Stage 3
+       ========================= */
+
+    #stage3 {
+      text-align: center;
+    }
+
+    .birthday-message {
+      font-size: clamp(28px, 8vw, 42px);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      animation: appear 1.2s ease forwards;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================
+       表示切り替え
+       ========================= */
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* スクロールバーを目立たせない */
+    ::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    html {
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       Stage 1
+       最初の画面
+       ========================= -->
+
+  <section id="stage1" class="screen">
+
+    <a id="mainLink" class="cd-button" href="#">
+      <img src="cd.png" alt="Play">
+    </a>
+
+    <div class="small-text">
+      FOR YOU
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       Stage 2
+       プレイリストから戻ってきた後
+       ========================= -->
+
+  <section id="stage2" class="hidden">
+
+    <div class="stage2-main">
+      <div class="small-text">
+        FOR YOU
+      </div>
+    </div>
+
+    <div class="secret-area">
+      <a id="secretLink" class="secret-link" href="#">
+        なんもねぇ
+      </a>
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       Stage 3
+       なんもねぇから戻ってきた後
+       ========================= -->
+
+  <section id="stage3" class="screen hidden">
+
+    <div class="birthday-message">
+      誕生日おめでとう！
+    </div>
+
+  </section>
+
+
+  <script>
+
+    /* ==========================================
+       YouTube URL
+       ========================================== */
+
+    const PLAYLIST_URL =
+      "https://youtube.com/playlist?list=PLE8o6D-qzhzY&si=udX1vBSBjEIDuKgC";
+
+    const SECRET_URL =
+      "https://youtu.be/aRiVUVNUhIs?si=hcRCJKqANeBVuRmt";
+
+
+    /* ==========================================
+       ステージ管理
+       ========================================== */
+
+    const MAIN_PLAYED = "birthday_main_played";
+    const SECRET_PLAYED = "birthday_secret_played";
+
+    const stage1 = document.getElementById("stage1");
+    const stage2 = document.getElementById("stage2");
+    const stage3 = document.getElementById("stage3");
+
+    const mainLink = document.getElementById("mainLink");
+    const secretLink = document.getElementById("secretLink");
+
+
+    function render() {
+
+      const mainPlayed =
+        localStorage.getItem(MAIN_PLAYED) === "true";
+
+      const secretPlayed =
+        localStorage.getItem(SECRET_PLAYED) === "true";
+
+
+      stage1.classList.add("hidden");
+      stage2.classList.add("hidden");
+      stage3.classList.add("hidden");
+
+
+      if (secretPlayed) {
+
+        // 2回目に戻ってきた
+        stage3.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+
+      } else if (mainPlayed) {
+
+        // 最初のプレイリストから戻ってきた
+        stage2.classList.remove("hidden");
+        document.body.style.overflowY = "auto";
+
+      } else {
+
+        // 初回
+        stage1.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+
+    /* ==========================================
+       メインプレイリスト
+       ========================================== */
+
+    mainLink.addEventListener("click", function(event) {
+
+      event.preventDefault();
+
+      localStorage.setItem(MAIN_PLAYED, "true");
+
+      window.location.href = PLAYLIST_URL;
+
+    });
+
+
+    /* ==========================================
+       なんもねぇ
+       ========================================== */
+
+    secretLink.addEventListener("click", function(event) {
+
+      event.preventDefault();
+
+      localStorage.setItem(SECRET_PLAYED, "true");
+
+      window.location.href = SECRET_URL;
+
+    });
+
+
+    /* ==========================================
+       YouTubeから戻ってきた時も再描画
+       ========================================== */
+
+    window.addEventListener("pageshow", render);
+
+    render();
+
+  </script>
+
+</body>
+</html>
