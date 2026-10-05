@@ -1313,7 +1313,6 @@
 
   <script>
 
-
     /* =========================================================
        YouTube URL
        ========================================================= */
@@ -1327,7 +1326,14 @@
 
 
     /* =========================================================
-       状態保存
+       セッション状態管理
+       
+       localStorageではなくsessionStorageを使用。
+
+       ・同じページセッション中 → 状態を保持
+       ・Safariの再読み込み → 状態を保持
+       ・YouTubeから戻る → 状態を保持
+       ・新しくNFCから開く → 最初から
        ========================================================= */
 
     const MAIN_PLAYED =
@@ -1336,6 +1342,70 @@
 
     const SECRET_PLAYED =
       "birthday_secret_played";
+
+
+    /*
+     * 新しいページアクセスかどうか判定。
+     *
+     * "navigate"
+     * → NFCなどから新しく開いた
+     *
+     * "reload"
+     * → ページ再読み込み
+     *
+     * "back_forward"
+     * → ブラウザの戻る/進む
+     *
+     * NFCからの新規アクセスだけ状態をリセットする。
+     */
+
+    const navigationEntry =
+      performance.getEntriesByType(
+        "navigation"
+      )[0];
+
+
+    const navigationType =
+      navigationEntry
+        ? navigationEntry.type
+        : "navigate";
+
+
+    if (
+      navigationType ===
+      "navigate"
+    ) {
+
+      /*
+       * 今回の新しいNFCアクセスなので
+       * 前回のセッション状態を破棄。
+       */
+
+      sessionStorage.removeItem(
+        MAIN_PLAYED
+      );
+
+
+      sessionStorage.removeItem(
+        SECRET_PLAYED
+      );
+
+
+      /*
+       * 以前のバージョンで使用していた
+       * localStorageも念のため消去。
+       */
+
+      localStorage.removeItem(
+        MAIN_PLAYED
+      );
+
+
+      localStorage.removeItem(
+        SECRET_PLAYED
+      );
+
+    }
 
 
     /* =========================================================
@@ -1695,13 +1765,13 @@
     function render() {
 
       const mainPlayed =
-        localStorage.getItem(
+        sessionStorage.getItem(
           MAIN_PLAYED
         ) === "true";
 
 
       const secretPlayed =
-        localStorage.getItem(
+        sessionStorage.getItem(
           SECRET_PLAYED
         ) === "true";
 
@@ -1808,7 +1878,7 @@
         e.preventDefault();
 
 
-        localStorage.setItem(
+        sessionStorage.setItem(
           MAIN_PLAYED,
           "true"
         );
@@ -1832,7 +1902,7 @@
         e.preventDefault();
 
 
-        localStorage.setItem(
+        sessionStorage.setItem(
           SECRET_PLAYED,
           "true"
         );
@@ -1851,12 +1921,12 @@
 
     function goBack() {
 
-      localStorage.removeItem(
+      sessionStorage.removeItem(
         MAIN_PLAYED
       );
 
 
-      localStorage.removeItem(
+      sessionStorage.removeItem(
         SECRET_PLAYED
       );
 
@@ -1872,7 +1942,9 @@
     }
 
 
-    /* 2ページ目 */
+    /* =========================================================
+       2ページ目 戻る
+       ========================================================= */
 
     backLink2.addEventListener(
       "click",
@@ -1886,7 +1958,9 @@
     );
 
 
-    /* 3ページ目 */
+    /* =========================================================
+       3ページ目 戻る
+       ========================================================= */
 
     backLink3.addEventListener(
       "click",
