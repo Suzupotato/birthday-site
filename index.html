@@ -17,9 +17,9 @@
 
   <style>
 
-    /* =========================
+    /* =========================================================
        基本設定
-       ========================= */
+       ========================================================= */
 
     * {
       box-sizing: border-box;
@@ -63,9 +63,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        1ページ目
-       ========================= */
+       ========================================================= */
 
     #stage1 {
       min-height: 100svh;
@@ -100,9 +100,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        筆記体
-       ========================= */
+       ========================================================= */
 
     .script-text {
       margin-top: 24px;
@@ -118,9 +118,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        2ページ目
-       ========================= */
+       ========================================================= */
 
     #stage2 {
       min-height: 145svh;
@@ -138,9 +138,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        戻る + なんもねぇ
-       ========================= */
+       ========================================================= */
 
     .secret-area {
       width: 100%;
@@ -182,12 +182,13 @@
 
     /* =========================================================
        3ページ目
-       超豪華ゲーミング・クラッカー・紙吹雪モード
+       超豪華ゲーミング誕生日モード
        ========================================================= */
 
     #stage3 {
       min-height: 100svh;
       position: relative;
+
       text-align: center;
 
       overflow: hidden;
@@ -196,38 +197,39 @@
         radial-gradient(
           circle at 50% 50%,
           rgba(255,255,255,1) 0%,
-          rgba(255,245,190,.95) 13%,
-          rgba(255,170,225,.82) 30%,
-          rgba(130,210,255,.72) 48%,
-          rgba(190,130,255,.72) 65%,
-          rgba(50,20,100,.95) 100%
+          rgba(255,245,180,.95) 12%,
+          rgba(255,150,220,.85) 28%,
+          rgba(110,220,255,.72) 47%,
+          rgba(170,110,255,.72) 65%,
+          rgba(45,15,90,.96) 100%
         );
 
       animation:
         backgroundPulse 4s ease-in-out infinite,
-        gamingHue 7s linear infinite;
+        gamingHue 8s linear infinite;
     }
 
 
-    /* =========================
-       七色ゲーミングの光
-       ========================= */
+    /* =========================================================
+       七色ゲーミング光
+       ========================================================= */
 
-    #stage3 .rainbow-glow {
+    .rainbow-glow {
       position: absolute;
 
-      inset: -30%;
+      inset: -35%;
 
       background:
         conic-gradient(
           from 0deg,
+
           rgba(255,0,0,.28),
-          rgba(255,165,0,.28),
+          rgba(255,150,0,.28),
           rgba(255,255,0,.28),
           rgba(0,255,100,.28),
-          rgba(0,200,255,.28),
-          rgba(100,80,255,.28),
-          rgba(255,0,200,.28),
+          rgba(0,220,255,.28),
+          rgba(90,70,255,.28),
+          rgba(255,0,220,.28),
           rgba(255,0,0,.28)
         );
 
@@ -237,25 +239,28 @@
         rainbowRotate 9s linear infinite;
 
       pointer-events: none;
+
+      z-index: 1;
     }
 
 
-    /* =========================
-       光の中心・放射線
-       ========================= */
+    /* =========================================================
+       光線
+       ========================================================= */
 
     #stage3::before {
       content: "";
 
       position: absolute;
 
-      width: 120vmax;
-      height: 120vmax;
+      width: 130vmax;
+      height: 130vmax;
 
       left: 50%;
       top: 50%;
 
-      transform: translate(-50%, -50%);
+      transform:
+        translate(-50%, -50%);
 
       border-radius: 50%;
 
@@ -264,15 +269,15 @@
           from 0deg,
 
           rgba(255,255,255,0) 0deg,
-          rgba(255,255,255,.10) 3deg,
+          rgba(255,255,255,.12) 3deg,
 
-          rgba(255,80,160,.25) 6deg,
+          rgba(255,80,160,.28) 6deg,
           rgba(255,255,255,0) 9deg,
 
-          rgba(80,220,255,.25) 13deg,
+          rgba(70,220,255,.28) 13deg,
           rgba(255,255,255,0) 17deg,
 
-          rgba(255,230,80,.28) 21deg,
+          rgba(255,230,70,.30) 21deg,
           rgba(255,255,255,0) 26deg
         );
 
@@ -280,12 +285,14 @@
         raysSpin 10s linear infinite;
 
       pointer-events: none;
+
+      z-index: 2;
     }
 
 
-    /* =========================
-       キラキラ粒子
-       ========================= */
+    /* =========================================================
+       キラキラ背景
+       ========================================================= */
 
     #stage3::after {
       content:
@@ -299,13 +306,20 @@
       justify-content: center;
       align-items: center;
 
-      padding: 5%;
+      padding: 4%;
 
-      font-size: clamp(15px, 4vw, 28px);
+      font-size:
+        clamp(
+          15px,
+          4vw,
+          28px
+        );
+
       line-height: 4.5;
+
       letter-spacing: 12px;
 
-      color: rgba(255,255,255,.95);
+      color: rgba(255,255,255,.96);
 
       text-shadow:
         0 0 5px #fff,
@@ -318,12 +332,14 @@
 
       animation:
         sparkleFloat 3s ease-in-out infinite,
-        sparkleTwinkle 1.5s ease-in-out infinite alternate;
+        sparkleTwinkle 1.4s ease-in-out infinite alternate;
+
+      z-index: 3;
     }
 
 
     /* =========================================================
-       クラッカー
+       クラッカー本体
        ========================================================= */
 
     .cracker {
@@ -331,49 +347,58 @@
 
       top: 50%;
 
-      width: 8px;
-      height: 8px;
+      width: 14px;
+      height: 14px;
 
       border-radius: 50%;
 
       pointer-events: none;
 
-      z-index: 7;
+      z-index: 12;
 
       opacity: 0;
-    }
 
+      filter:
+        drop-shadow(0 0 8px #fff)
+        drop-shadow(0 0 15px #ffd84a);
+    }
 
     .cracker-left {
-      left: 6%;
+      left: 3%;
 
       animation:
-        crackerLeft 1.7s cubic-bezier(.15,.8,.2,1) .25s forwards;
+        crackerLeft
+        1.7s
+        cubic-bezier(.15,.8,.2,1)
+        .2s
+        forwards;
     }
-
 
     .cracker-right {
-      right: 6%;
+      right: 3%;
 
       animation:
-        crackerRight 1.7s cubic-bezier(.85,.2,.8,1) .25s forwards;
+        crackerRight
+        1.7s
+        cubic-bezier(.85,.2,.8,1)
+        .2s
+        forwards;
     }
 
-
-    /* クラッカーから飛び散る粒 */
 
     .cracker-left::before,
     .cracker-left::after,
     .cracker-right::before,
     .cracker-right::after {
-      content: "✦ ✧ ✨ • ◆ ★";
+
+      content:
+        "✦ ✧ ✨ • ◆ ★ ✦ ✨";
 
       position: absolute;
 
-      font-size: 18px;
-      font-weight: bold;
+      font-size: 20px;
 
-      width: 160px;
+      width: 190px;
 
       line-height: 2;
 
@@ -382,7 +407,8 @@
       text-shadow:
         0 0 5px #fff,
         0 0 12px #ffdd55,
-        0 0 20px #ff66cc;
+        0 0 20px #ff66cc,
+        0 0 30px #63eaff;
 
       pointer-events: none;
     }
@@ -390,11 +416,16 @@
 
     .cracker-left::before {
       right: -10px;
-      top: -90px;
+      top: -100px;
 
       transform: rotate(-12deg);
 
-      animation: crackerBurst 1.4s ease-out .35s forwards;
+      animation:
+        crackerBurst
+        1.4s
+        ease-out
+        .3s
+        forwards;
     }
 
 
@@ -404,17 +435,27 @@
 
       transform: rotate(12deg);
 
-      animation: crackerBurst 1.4s ease-out .4s forwards;
+      animation:
+        crackerBurst
+        1.4s
+        ease-out
+        .4s
+        forwards;
     }
 
 
     .cracker-right::before {
       left: -10px;
-      top: -90px;
+      top: -100px;
 
       transform: rotate(12deg);
 
-      animation: crackerBurst 1.4s ease-out .35s forwards;
+      animation:
+        crackerBurst
+        1.4s
+        ease-out
+        .3s
+        forwards;
     }
 
 
@@ -424,7 +465,12 @@
 
       transform: rotate(-12deg);
 
-      animation: crackerBurst 1.4s ease-out .4s forwards;
+      animation:
+        crackerBurst
+        1.4s
+        ease-out
+        .4s
+        forwards;
     }
 
 
@@ -441,32 +487,27 @@
 
       pointer-events: none;
 
-      z-index: 8;
+      z-index: 15;
     }
 
 
     .confetti {
       position: absolute;
 
-      top: -12vh;
+      top: -30px;
 
-      width: 8px;
-      height: 14px;
+      width: 9px;
+      height: 16px;
 
-      opacity: 0;
+      opacity: 1;
 
-      border-radius: 1px;
+      border-radius: 2px;
 
-      animation:
-        confettiFall var(--fall-time) linear var(--delay) forwards;
+      pointer-events: none;
 
-      transform:
-        translate3d(
-          0,
-          0,
-          0
-        )
-        rotate(0deg);
+      will-change:
+        transform,
+        opacity;
     }
 
 
@@ -476,7 +517,11 @@
         opacity: 0;
 
         transform:
-          translate3d(0, -10vh, 0)
+          translate3d(
+            0,
+            -40px,
+            0
+          )
           rotate(0deg);
       }
 
@@ -499,17 +544,114 @@
     }
 
 
-    /* =========================
+    /* =========================================================
+       降ってくる祝福絵文字
+       ========================================================= */
+
+    .emoji-container {
+      position: absolute;
+
+      inset: 0;
+
+      overflow: hidden;
+
+      pointer-events: none;
+
+      z-index: 16;
+    }
+
+
+    .falling-emoji {
+      position: absolute;
+
+      top: -12vh;
+
+      line-height: 1;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      will-change:
+        transform,
+        opacity;
+
+      animation:
+        emojiFall
+        var(--duration)
+        cubic-bezier(.15,.65,.3,1)
+        var(--delay)
+        forwards;
+    }
+
+
+    @keyframes emojiFall {
+
+      0% {
+        opacity: 0;
+
+        transform:
+          translate3d(
+            0,
+            -10vh,
+            0
+          )
+          rotate(0deg)
+          scale(.65);
+      }
+
+      8% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 1;
+
+        transform:
+          translate3d(
+            var(--mid-drift),
+            48vh,
+            0
+          )
+          rotate(var(--mid-rotation))
+          scale(1);
+      }
+
+      100% {
+        opacity: .9;
+
+        transform:
+          translate3d(
+            var(--drift),
+            120vh,
+            0
+          )
+          rotate(var(--rotation))
+          scale(.8);
+      }
+
+    }
+
+
+    /* =========================================================
        誕生日メッセージ
-       ========================= */
+       ========================================================= */
 
     .birthday-message {
       position: relative;
-      z-index: 10;
 
-      font-family: "Mochiy Pop One", sans-serif;
+      z-index: 20;
 
-      font-size: clamp(28px, 8vw, 42px);
+      font-family:
+        "Mochiy Pop One",
+        sans-serif;
+
+      font-size:
+        clamp(
+          28px,
+          8vw,
+          42px
+        );
 
       font-weight: 400;
 
@@ -517,107 +659,172 @@
 
       color: #fff;
 
-      padding: 22px 28px;
+      padding:
+        24px 30px;
 
-      border-radius: 28px;
+      border-radius: 30px;
 
+
+      /* 金色のベース */
       background:
         linear-gradient(
           120deg,
-          #ff3b81,
-          #ff9f43,
-          #ffe45c,
-          #55e89a,
-          #4bd8ff,
-          #8585ff,
-          #ef65e8,
-          #ff3b81
+
+          #fff6b0 0%,
+          #ffd700 12%,
+          #fff7b8 25%,
+          #e8a900 38%,
+          #fff9ce 50%,
+          #ffd700 63%,
+          #fff1a0 76%,
+          #d99a00 88%,
+          #fff4a8 100%
         );
 
-      background-size: 500% 500%;
+      background-size:
+        500% 500%;
 
-      border: 4px solid rgba(255,255,255,.98);
+
+      /* 多重ゴールドフレーム */
+
+      border:
+        4px solid #fff;
 
       box-shadow:
-        0 0 0 3px rgba(255,220,70,.85),
+
+        0 0 0 3px #ffd700,
+
+        0 0 0 7px #fff2a0,
+
+        0 0 0 10px #d99b00,
+
+        0 0 0 13px #fff,
+
+        0 0 0 16px #ffd700,
+
         0 0 12px #fff,
-        0 0 28px #ff72ce,
-        0 0 45px #6ce8ff,
-        0 0 70px #ffe15b,
+
+        0 0 25px #ffe15b,
+
+        0 0 45px #ffb900,
+
+        0 0 70px #fff0a0,
+
         0 0 100px rgba(255,80,210,.75),
-        0 12px 40px rgba(40,10,80,.35);
+
+        0 12px 45px rgba(40,10,80,.35);
+
 
       text-shadow:
-        0 2px 0 rgba(100,40,90,.3),
+
+        0 2px 0 rgba(100,40,90,.30),
+
         0 0 7px #fff,
+
         0 0 16px #fff,
-        0 0 30px #ffdb5c;
+
+        0 0 28px #fff5a0,
+
+        0 0 40px #ffd700;
+
 
       animation:
-        birthdayAppear 1.1s cubic-bezier(.2,1.4,.4,1) forwards,
-        birthdayGradient 3s linear 1.1s infinite,
-        birthdayGlow 1.5s ease-in-out 1.1s infinite alternate;
+
+        birthdayAppear
+        1.1s
+        cubic-bezier(.2,1.4,.4,1)
+        forwards,
+
+        goldShimmer
+        2.2s
+        linear
+        1.1s
+        infinite,
+
+        birthdayGlow
+        1.5s
+        ease-in-out
+        1.1s
+        infinite
+        alternate;
     }
 
 
-    /* =========================
-       文字周辺の星
-       ========================= */
+    /* =========================================================
+       メッセージ周辺の巨大キラキラ
+       ========================================================= */
 
     .birthday-message::before,
     .birthday-message::after {
+
       position: absolute;
 
       z-index: -1;
 
       color: #fff;
 
-      text-shadow:
-        0 0 6px #fff,
-        0 0 14px #ffd95a,
-        0 0 25px #ff9dd8,
-        0 0 40px #5eeaff;
-
       pointer-events: none;
+
+      text-shadow:
+
+        0 0 6px #fff,
+
+        0 0 14px #ffd95a,
+
+        0 0 25px #ff9dd8,
+
+        0 0 40px #5eeaff,
+
+        0 0 55px #fff;
     }
 
 
     .birthday-message::before {
-      content: "✦";
 
-      left: -34px;
-      top: -30px;
+      content:
+        "✦";
 
-      font-size: 38px;
+      left: -42px;
+      top: -38px;
+
+      font-size: 46px;
 
       animation:
-        starPop 1.1s ease-in-out infinite,
-        rainbowText 2s linear infinite;
+        starPop
+        1.1s
+        ease-in-out
+        infinite;
     }
 
 
     .birthday-message::after {
-      content: "✧";
 
-      right: -34px;
-      bottom: -28px;
+      content:
+        "✧";
 
-      font-size: 42px;
+      right: -42px;
+      bottom: -36px;
+
+      font-size: 50px;
 
       animation:
-        starPop 1.1s ease-in-out .5s infinite,
-        rainbowText 2s linear .5s infinite;
+        starPop
+        1.1s
+        ease-in-out
+        .5s
+        infinite;
     }
 
 
-    /* =========================
+    /* =========================================================
        3ページ目 戻る
-       ========================= */
+       ========================================================= */
 
     .stage3-back {
+
       position: relative;
 
-      z-index: 20;
+      z-index: 30;
 
       margin-top: 90px;
     }
@@ -665,40 +872,69 @@
     @keyframes birthdayGlow {
 
       0% {
+
         box-shadow:
+
           0 0 0 3px rgba(255,220,70,.7),
+
+          0 0 0 7px #fff2a0,
+
+          0 0 0 10px #d99b00,
+
+          0 0 0 13px #fff,
+
           0 0 15px #fff,
-          0 0 30px #ff72ce,
-          0 0 50px #6ce8ff,
-          0 0 75px #ffe15b,
-          0 10px 40px rgba(40,10,80,.3);
+
+          0 0 30px #ffd700,
+
+          0 0 55px #ffb900,
+
+          0 0 80px #fff0a0;
+
       }
 
       100% {
+
         box-shadow:
-          0 0 0 5px rgba(255,240,100,1),
+
+          0 0 0 4px #fff,
+
+          0 0 0 8px #ffd700,
+
+          0 0 0 12px #fff4a0,
+
+          0 0 0 16px #d99b00,
+
           0 0 25px #fff,
-          0 0 50px #ff72ce,
-          0 0 75px #6ce8ff,
-          0 0 110px #ffe15b,
-          0 12px 50px rgba(40,10,80,.4);
+
+          0 0 50px #ffd700,
+
+          0 0 85px #ffb900,
+
+          0 0 120px #fff0a0,
+
+          0 0 150px rgba(255,100,220,.7);
+
       }
 
     }
 
 
-    @keyframes birthdayGradient {
+    @keyframes goldShimmer {
 
       0% {
-        background-position: 0% 50%;
+        background-position:
+          0% 50%;
       }
 
       50% {
-        background-position: 100% 50%;
+        background-position:
+          100% 50%;
       }
 
       100% {
-        background-position: 0% 50%;
+        background-position:
+          0% 50%;
       }
 
     }
@@ -708,11 +944,13 @@
 
       0%,
       100% {
-        filter: saturate(1);
+        filter:
+          saturate(1);
       }
 
       50% {
-        filter: saturate(1.45);
+        filter:
+          saturate(1.45);
       }
 
     }
@@ -721,23 +959,33 @@
     @keyframes gamingHue {
 
       0% {
-        filter: hue-rotate(0deg) saturate(1.1);
+        filter:
+          hue-rotate(0deg)
+          saturate(1.1);
       }
 
       25% {
-        filter: hue-rotate(70deg) saturate(1.3);
+        filter:
+          hue-rotate(70deg)
+          saturate(1.3);
       }
 
       50% {
-        filter: hue-rotate(150deg) saturate(1.2);
+        filter:
+          hue-rotate(150deg)
+          saturate(1.25);
       }
 
       75% {
-        filter: hue-rotate(250deg) saturate(1.35);
+        filter:
+          hue-rotate(250deg)
+          saturate(1.35);
       }
 
       100% {
-        filter: hue-rotate(360deg) saturate(1.1);
+        filter:
+          hue-rotate(360deg)
+          saturate(1.1);
       }
 
     }
@@ -765,15 +1013,13 @@
       from {
         transform:
           translate(-50%, -50%)
-          rotate(0deg)
-          scale(1);
+          rotate(0deg);
       }
 
       to {
         transform:
           translate(-50%, -50%)
-          rotate(360deg)
-          scale(1);
+          rotate(360deg);
       }
 
     }
@@ -814,6 +1060,7 @@
 
       0%,
       100% {
+
         transform:
           scale(.7)
           rotate(0deg);
@@ -822,8 +1069,9 @@
       }
 
       50% {
+
         transform:
-          scale(1.45)
+          scale(1.5)
           rotate(25deg);
 
         opacity: 1;
@@ -832,38 +1080,10 @@
     }
 
 
-    @keyframes rainbowText {
-
-      0% {
-        color: #fff;
-      }
-
-      25% {
-        color: #ffed6a;
-      }
-
-      50% {
-        color: #71f6ff;
-      }
-
-      75% {
-        color: #ff7de5;
-      }
-
-      100% {
-        color: #fff;
-      }
-
-    }
-
-
-    /* =========================
-       クラッカーバースト
-       ========================= */
-
     @keyframes crackerLeft {
 
       0% {
+
         opacity: 0;
 
         transform:
@@ -876,11 +1096,12 @@
       }
 
       100% {
+
         opacity: 0;
 
         transform:
-          translateX(20vw)
-          scale(1.8);
+          translateX(25vw)
+          scale(2);
       }
 
     }
@@ -889,6 +1110,7 @@
     @keyframes crackerRight {
 
       0% {
+
         opacity: 0;
 
         transform:
@@ -901,11 +1123,12 @@
       }
 
       100% {
+
         opacity: 0;
 
         transform:
-          translateX(-20vw)
-          scale(1.8);
+          translateX(-25vw)
+          scale(2);
       }
 
     }
@@ -914,6 +1137,7 @@
     @keyframes crackerBurst {
 
       0% {
+
         opacity: 0;
 
         transform:
@@ -926,19 +1150,20 @@
       }
 
       100% {
+
         opacity: 0;
 
         transform:
-          scale(1.3)
-          translateX(70px);
+          scale(1.4)
+          translateX(80px);
       }
 
     }
 
 
-    /* =========================
+    /* =========================================================
        スクロールバー非表示
-       ========================= */
+       ========================================================= */
 
     ::-webkit-scrollbar {
       width: 0;
@@ -956,13 +1181,20 @@
 <body>
 
 
-  <!-- =========================
+  <!-- =========================================================
        1ページ目
-       ========================= -->
+       ========================================================= -->
 
-  <section id="stage1" class="screen">
+  <section
+    id="stage1"
+    class="screen"
+  >
 
-    <a id="mainLink" class="cd-button" href="#">
+    <a
+      id="mainLink"
+      class="cd-button"
+      href="#"
+    >
 
       <img
         src="CD.PNG"
@@ -970,6 +1202,7 @@
       >
 
     </a>
+
 
     <div class="script-text">
       Dear you…
@@ -979,11 +1212,14 @@
 
 
 
-  <!-- =========================
+  <!-- =========================================================
        2ページ目
-       ========================= -->
+       ========================================================= -->
 
-  <section id="stage2" class="hidden">
+  <section
+    id="stage2"
+    class="hidden"
+  >
 
     <div class="stage2-main">
 
@@ -1019,18 +1255,28 @@
 
 
 
-  <!-- =========================
+  <!-- =========================================================
        3ページ目
-       ========================= -->
+       ========================================================= -->
 
-  <section id="stage3" class="screen hidden">
+  <section
+    id="stage3"
+    class="screen hidden"
+  >
 
-    <!-- 七色ゲーミング光 -->
+    <!-- 七色ゲーミング -->
     <div class="rainbow-glow"></div>
 
+
     <!-- 左右クラッカー -->
-    <div class="cracker cracker-left"></div>
-    <div class="cracker cracker-right"></div>
+    <div
+      class="cracker cracker-left"
+    ></div>
+
+    <div
+      class="cracker cracker-right"
+    ></div>
+
 
     <!-- 紙吹雪 -->
     <div
@@ -1039,11 +1285,20 @@
     ></div>
 
 
+    <!-- 祝福絵文字 -->
+    <div
+      id="emojiContainer"
+      class="emoji-container"
+    ></div>
+
+
+    <!-- メイン -->
     <div class="birthday-message">
       誕生日おめでとう！
     </div>
 
 
+    <!-- 戻る -->
     <a
       id="backLink3"
       class="back-link stage3-back hidden"
@@ -1059,71 +1314,102 @@
   <script>
 
 
-    /* =========================
+    /* =========================================================
        YouTube URL
-       ========================= */
+       ========================================================= */
 
     const PLAYLIST_URL =
       "https://youtube.com/playlist?list=PLE8o6D-qzhzY&si=udX1vBSBjEIDuKgC";
+
 
     const SECRET_URL =
       "https://youtu.be/aRiVUVNUhIs?si=hcRCJKqANeBVuRmt";
 
 
-    /* =========================
-       状態保存用
-       ========================= */
+    /* =========================================================
+       状態保存
+       ========================================================= */
 
     const MAIN_PLAYED =
       "birthday_main_played";
+
 
     const SECRET_PLAYED =
       "birthday_secret_played";
 
 
-    /* =========================
+    /* =========================================================
        要素取得
-       ========================= */
+       ========================================================= */
 
     const stage1 =
-      document.getElementById("stage1");
+      document.getElementById(
+        "stage1"
+      );
+
 
     const stage2 =
-      document.getElementById("stage2");
+      document.getElementById(
+        "stage2"
+      );
+
 
     const stage3 =
-      document.getElementById("stage3");
+      document.getElementById(
+        "stage3"
+      );
 
 
     const mainLink =
-      document.getElementById("mainLink");
+      document.getElementById(
+        "mainLink"
+      );
+
 
     const secretLink =
-      document.getElementById("secretLink");
+      document.getElementById(
+        "secretLink"
+      );
 
 
     const backLink2 =
-      document.getElementById("backLink2");
+      document.getElementById(
+        "backLink2"
+      );
+
 
     const backLink3 =
-      document.getElementById("backLink3");
+      document.getElementById(
+        "backLink3"
+      );
 
 
     const confettiContainer =
-      document.getElementById("confettiContainer");
+      document.getElementById(
+        "confettiContainer"
+      );
 
 
-    /* =========================
+    const emojiContainer =
+      document.getElementById(
+        "emojiContainer"
+      );
+
+
+    /* =========================================================
        紙吹雪生成
-       ========================= */
+       ========================================================= */
 
     function createConfetti() {
 
       confettiContainer.innerHTML = "";
 
-      const count = 85;
+
+      const count = 100;
+
 
       const colors = [
+
         "#ff3b81",
         "#ff9f43",
         "#ffe45c",
@@ -1131,23 +1417,36 @@
         "#4bd8ff",
         "#8585ff",
         "#ef65e8",
-        "#ffffff"
+        "#ffffff",
+        "#ffd700"
+
       ];
 
 
-      for (let i = 0; i < count; i++) {
+      for (
+        let i = 0;
+        i < count;
+        i++
+      ) {
 
         const piece =
-          document.createElement("span");
+          document.createElement(
+            "span"
+          );
 
-        piece.className = "confetti";
+
+        piece.className =
+          "confetti";
 
 
         const size =
-          5 + Math.random() * 7;
+          6 +
+          Math.random() * 7;
+
 
         const height =
-          8 + Math.random() * 12;
+          10 +
+          Math.random() * 12;
 
 
         const left =
@@ -1155,56 +1454,67 @@
 
 
         const drift =
-          (Math.random() * 50 - 25) + "vw";
+          (
+            Math.random() * 60 -
+            30
+          ) + "vw";
 
 
         const rotation =
-          (Math.random() * 1440 - 720) + "deg";
+          (
+            Math.random() * 1800 -
+            900
+          ) + "deg";
 
 
         const fallTime =
-          (3.0 + Math.random() * 2.5) + "s";
+          (
+            3 +
+            Math.random() * 2
+          ) + "s";
 
 
         const delay =
-          (Math.random() * .8) + "s";
+          (
+            Math.random() * .7
+          ) + "s";
 
 
         piece.style.left =
           left + "%";
 
+
         piece.style.width =
           size + "px";
+
 
         piece.style.height =
           height + "px";
 
+
         piece.style.background =
           colors[
             Math.floor(
-              Math.random() * colors.length
+              Math.random() *
+              colors.length
             )
           ];
+
 
         piece.style.setProperty(
           "--drift",
           drift
         );
 
+
         piece.style.setProperty(
           "--rotation",
           rotation
         );
 
-        piece.style.setProperty(
-          "--fall-time",
-          fallTime
-        );
 
-        piece.style.setProperty(
-          "--delay",
-          delay
-        );
+        piece.style.animation =
+          `confettiFall ${fallTime} linear ${delay} forwards`;
 
 
         confettiContainer.appendChild(
@@ -1216,75 +1526,280 @@
     }
 
 
-    /* =========================
-       画面表示
-       ========================= */
+    /* =========================================================
+       絵文字生成
+       ========================================================= */
 
-    function render() {
+    function createFallingEmojis() {
 
-      const mainPlayed =
-        localStorage.getItem(MAIN_PLAYED) === "true";
-
-      const secretPlayed =
-        localStorage.getItem(SECRET_PLAYED) === "true";
+      emojiContainer.innerHTML =
+        "";
 
 
-      stage1.classList.add("hidden");
-      stage2.classList.add("hidden");
-      stage3.classList.add("hidden");
-
-      backLink2.classList.add("hidden");
-      backLink3.classList.add("hidden");
+      const count = 60;
 
 
-      /* =========================
-         3ページ目
-         ========================= */
+      const emojis = [
 
-      if (secretPlayed) {
+        "🥳",
+        "🎉",
+        "🎊",
+        "✨",
+        "⭐",
+        "💥"
 
-        stage3.classList.remove("hidden");
+      ];
 
-        backLink3.classList.remove("hidden");
 
-        document.body.style.overflow = "hidden";
+      for (
+        let i = 0;
+        i < count;
+        i++
+      ) {
 
-        createConfetti();
+        const emoji =
+          document.createElement(
+            "span"
+          );
 
-        return;
+
+        emoji.className =
+          "falling-emoji";
+
+
+        emoji.textContent =
+          emojis[
+            Math.floor(
+              Math.random() *
+              emojis.length
+            )
+          ];
+
+
+        const left =
+          Math.random() * 100;
+
+
+        const size =
+          18 +
+          Math.random() * 25;
+
+
+        const duration =
+          3.2 +
+          Math.random() * 2.5;
+
+
+        const delay =
+          Math.random() * .9;
+
+
+        const drift =
+          (
+            Math.random() * 70 -
+            35
+          ) + "vw";
+
+
+        const midDrift =
+          (
+            Math.random() * 45 -
+            22.5
+          ) + "vw";
+
+
+        const rotation =
+          (
+            Math.random() * 900 -
+            450
+          ) + "deg";
+
+
+        const midRotation =
+          (
+            Math.random() * 360 -
+            180
+          ) + "deg";
+
+
+        emoji.style.left =
+          left + "%";
+
+
+        emoji.style.fontSize =
+          size + "px";
+
+
+        emoji.style.setProperty(
+          "--duration",
+          duration + "s"
+        );
+
+
+        emoji.style.setProperty(
+          "--delay",
+          delay + "s"
+        );
+
+
+        emoji.style.setProperty(
+          "--drift",
+          drift
+        );
+
+
+        emoji.style.setProperty(
+          "--mid-drift",
+          midDrift
+        );
+
+
+        emoji.style.setProperty(
+          "--rotation",
+          rotation
+        );
+
+
+        emoji.style.setProperty(
+          "--mid-rotation",
+          midRotation
+        );
+
+
+        emojiContainer.appendChild(
+          emoji
+        );
+
       }
-
-
-      /* =========================
-         2ページ目
-         ========================= */
-
-      if (mainPlayed) {
-
-        stage2.classList.remove("hidden");
-
-        backLink2.classList.remove("hidden");
-
-        document.body.style.overflowY = "auto";
-
-        return;
-      }
-
-
-      /* =========================
-         1ページ目
-         ========================= */
-
-      stage1.classList.remove("hidden");
-
-      document.body.style.overflow = "hidden";
 
     }
 
 
-    /* =========================
+    /* =========================================================
+       演出開始
+       ========================================================= */
+
+    function startCelebration() {
+
+      createConfetti();
+
+      createFallingEmojis();
+
+    }
+
+
+    /* =========================================================
+       画面表示
+       ========================================================= */
+
+    function render() {
+
+      const mainPlayed =
+        localStorage.getItem(
+          MAIN_PLAYED
+        ) === "true";
+
+
+      const secretPlayed =
+        localStorage.getItem(
+          SECRET_PLAYED
+        ) === "true";
+
+
+      stage1.classList.add(
+        "hidden"
+      );
+
+
+      stage2.classList.add(
+        "hidden"
+      );
+
+
+      stage3.classList.add(
+        "hidden"
+      );
+
+
+      backLink2.classList.add(
+        "hidden"
+      );
+
+
+      backLink3.classList.add(
+        "hidden"
+      );
+
+
+      /* =====================================================
+         3ページ目
+         ===================================================== */
+
+      if (secretPlayed) {
+
+        stage3.classList.remove(
+          "hidden"
+        );
+
+
+        backLink3.classList.remove(
+          "hidden"
+        );
+
+
+        document.body.style.overflow =
+          "hidden";
+
+
+        startCelebration();
+
+
+        return;
+      }
+
+
+      /* =====================================================
+         2ページ目
+         ===================================================== */
+
+      if (mainPlayed) {
+
+        stage2.classList.remove(
+          "hidden"
+        );
+
+
+        backLink2.classList.remove(
+          "hidden"
+        );
+
+
+        document.body.style.overflowY =
+          "auto";
+
+
+        return;
+      }
+
+
+      /* =====================================================
+         1ページ目
+         ===================================================== */
+
+      stage1.classList.remove(
+        "hidden"
+      );
+
+
+      document.body.style.overflow =
+        "hidden";
+
+    }
+
+
+    /* =========================================================
        CDを押したとき
-       ========================= */
+       ========================================================= */
 
     mainLink.addEventListener(
       "click",
@@ -1292,10 +1807,12 @@
 
         e.preventDefault();
 
+
         localStorage.setItem(
           MAIN_PLAYED,
           "true"
         );
+
 
         window.location.href =
           PLAYLIST_URL;
@@ -1304,9 +1821,9 @@
     );
 
 
-    /* =========================
+    /* =========================================================
        なんもねぇ
-       ========================= */
+       ========================================================= */
 
     secretLink.addEventListener(
       "click",
@@ -1314,10 +1831,12 @@
 
         e.preventDefault();
 
+
         localStorage.setItem(
           SECRET_PLAYED,
           "true"
         );
+
 
         window.location.href =
           SECRET_URL;
@@ -1326,9 +1845,9 @@
     );
 
 
-    /* =========================
+    /* =========================================================
        最初に戻る
-       ========================= */
+       ========================================================= */
 
     function goBack() {
 
@@ -1336,11 +1855,17 @@
         MAIN_PLAYED
       );
 
+
       localStorage.removeItem(
         SECRET_PLAYED
       );
 
-      window.scrollTo(0, 0);
+
+      window.scrollTo(
+        0,
+        0
+      );
+
 
       render();
 
@@ -1375,9 +1900,9 @@
     );
 
 
-    /* =========================
+    /* =========================================================
        YouTubeから戻ってきたとき
-       ========================= */
+       ========================================================= */
 
     window.addEventListener(
       "pageshow",
@@ -1394,7 +1919,8 @@
       function() {
 
         if (
-          document.visibilityState === "visible"
+          document.visibilityState ===
+          "visible"
         ) {
 
           render();
@@ -1405,9 +1931,9 @@
     );
 
 
-    /* =========================
+    /* =========================================================
        初回表示
-       ========================= */
+       ========================================================= */
 
     render();
 
