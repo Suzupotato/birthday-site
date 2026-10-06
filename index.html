@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Mochiy+Pop+One&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Klee+One:wght@400;600&family=Mochiy+Pop+One&display=swap"
     rel="stylesheet"
   >
 
@@ -135,6 +135,93 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+    }
+
+
+    /* =========================================================
+       曲リスト
+       ========================================================= */
+
+    .song-list {
+
+      width: min(88vw, 430px);
+
+      margin-top: 42px;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 19px;
+
+      font-family:
+        "Klee One",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        sans-serif;
+
+      font-size: 17px;
+
+      font-weight: 600;
+
+      letter-spacing: .03em;
+    }
+
+
+    .song-link {
+
+      display: block;
+
+      width: fit-content;
+
+      color: #666;
+
+      text-decoration: none;
+
+      line-height: 1.6;
+
+      -webkit-tap-highlight-color: transparent;
+
+      transition:
+        opacity .15s ease,
+        transform .15s ease;
+    }
+
+
+    .song-link:active {
+
+      opacity: .55;
+
+    }
+
+
+    /*
+     * ただ縦に並べず、
+     * 少しずつ左右に揺らして段差を作る
+     */
+
+    .song-item:nth-child(1) {
+      align-self: flex-start;
+      margin-left: 8%;
+    }
+
+    .song-item:nth-child(2) {
+      align-self: center;
+      margin-left: 14%;
+    }
+
+    .song-item:nth-child(3) {
+      align-self: flex-end;
+      margin-right: 7%;
+    }
+
+    .song-item:nth-child(4) {
+      align-self: center;
+      margin-right: 18%;
+    }
+
+    .song-item:nth-child(5) {
+      align-self: flex-start;
+      margin-left: 20%;
     }
 
 
@@ -530,7 +617,7 @@
       }
 
       100% {
-        opacity: 1;
+        opacity: 0;
 
         transform:
           translate3d(
@@ -618,7 +705,7 @@
       }
 
       100% {
-        opacity: .9;
+        opacity: 0;
 
         transform:
           translate3d(
@@ -1227,6 +1314,74 @@
         thank you for Watching!
       </div>
 
+
+      <!-- =====================================================
+           曲リスト
+           ===================================================== -->
+
+      <div class="song-list">
+
+        <div class="song-item">
+          <a
+            class="song-link"
+            href="https://utaten.com/lyric/ma22101113/"
+            target="_blank"
+            rel="noopener"
+          >
+            1. subtitle / Official髭男dism
+          </a>
+        </div>
+
+
+        <div class="song-item">
+          <a
+            class="song-link"
+            href="https://utaten.com/lyric/mo15081710/"
+            target="_blank"
+            rel="noopener"
+          >
+            2. blessing / ねぽらぼcover Ver.
+          </a>
+        </div>
+
+
+        <div class="song-item">
+          <a
+            class="song-link"
+            href="https://utaten.com/lyric/mi22052509/"
+            target="_blank"
+            rel="noopener"
+          >
+            3. My Song / 角巻わため
+          </a>
+        </div>
+
+
+        <div class="song-item">
+          <a
+            class="song-link"
+            href="https://utaten.com/lyric/jb80902019/"
+            target="_blank"
+            rel="noopener"
+          >
+            4. One Man Live / RADWIMPS
+          </a>
+        </div>
+
+
+        <div class="song-item">
+          <a
+            class="song-link"
+            href="https://utaten.com/lyric/jb80701041/"
+            target="_blank"
+            rel="noopener"
+          >
+            5. 最大公約数 / RADWIMPS
+          </a>
+        </div>
+
+      </div>
+
     </div>
 
 
@@ -1327,13 +1482,6 @@
 
     /* =========================================================
        セッション状態管理
-       
-       localStorageではなくsessionStorageを使用。
-
-       ・同じページセッション中 → 状態を保持
-       ・Safariの再読み込み → 状態を保持
-       ・YouTubeから戻る → 状態を保持
-       ・新しくNFCから開く → 最初から
        ========================================================= */
 
     const MAIN_PLAYED =
@@ -1343,21 +1491,6 @@
     const SECRET_PLAYED =
       "birthday_secret_played";
 
-
-    /*
-     * 新しいページアクセスかどうか判定。
-     *
-     * "navigate"
-     * → NFCなどから新しく開いた
-     *
-     * "reload"
-     * → ページ再読み込み
-     *
-     * "back_forward"
-     * → ブラウザの戻る/進む
-     *
-     * NFCからの新規アクセスだけ状態をリセットする。
-     */
 
     const navigationEntry =
       performance.getEntriesByType(
@@ -1376,11 +1509,6 @@
       "navigate"
     ) {
 
-      /*
-       * 今回の新しいNFCアクセスなので
-       * 前回のセッション状態を破棄。
-       */
-
       sessionStorage.removeItem(
         MAIN_PLAYED
       );
@@ -1390,11 +1518,6 @@
         SECRET_PLAYED
       );
 
-
-      /*
-       * 以前のバージョンで使用していた
-       * localStorageも念のため消去。
-       */
 
       localStorage.removeItem(
         MAIN_PLAYED
@@ -1467,16 +1590,10 @@
 
 
     /* =========================================================
-       紙吹雪生成
+       ランダム紙吹雪生成
        ========================================================= */
 
-    function createConfetti() {
-
-      confettiContainer.innerHTML = "";
-
-
-      const count = 100;
-
+    function spawnConfetti(count = 15) {
 
       const colors = [
 
@@ -1510,13 +1627,13 @@
 
 
         const size =
-          6 +
-          Math.random() * 7;
+          5 +
+          Math.random() * 8;
 
 
         const height =
-          10 +
-          Math.random() * 12;
+          9 +
+          Math.random() * 14;
 
 
         const left =
@@ -1525,29 +1642,27 @@
 
         const drift =
           (
-            Math.random() * 60 -
-            30
+            Math.random() * 80 -
+            40
           ) + "vw";
 
 
         const rotation =
           (
-            Math.random() * 1800 -
-            900
+            Math.random() * 3000 -
+            1500
           ) + "deg";
 
 
         const fallTime =
           (
-            3 +
-            Math.random() * 2
-          ) + "s";
+            3.2 +
+            Math.random() * 3
+          );
 
 
         const delay =
-          (
-            Math.random() * .7
-          ) + "s";
+          Math.random() * .35;
 
 
         piece.style.left =
@@ -1584,7 +1699,17 @@
 
 
         piece.style.animation =
-          `confettiFall ${fallTime} linear ${delay} forwards`;
+          `confettiFall ${fallTime}s linear ${delay}s forwards`;
+
+
+        piece.addEventListener(
+          "animationend",
+          function() {
+
+            piece.remove();
+
+          }
+        );
 
 
         confettiContainer.appendChild(
@@ -1597,17 +1722,10 @@
 
 
     /* =========================================================
-       絵文字生成
+       ランダム祝福絵文字生成
        ========================================================= */
 
-    function createFallingEmojis() {
-
-      emojiContainer.innerHTML =
-        "";
-
-
-      const count = 60;
-
+    function spawnFallingEmojis(count = 8) {
 
       const emojis = [
 
@@ -1652,43 +1770,43 @@
 
         const size =
           18 +
-          Math.random() * 25;
+          Math.random() * 30;
 
 
         const duration =
-          3.2 +
-          Math.random() * 2.5;
+          3.5 +
+          Math.random() * 3.5;
 
 
         const delay =
-          Math.random() * .9;
+          Math.random() * .7;
 
 
         const drift =
           (
-            Math.random() * 70 -
-            35
+            Math.random() * 90 -
+            45
           ) + "vw";
 
 
         const midDrift =
           (
-            Math.random() * 45 -
-            22.5
+            Math.random() * 60 -
+            30
           ) + "vw";
 
 
         const rotation =
           (
-            Math.random() * 900 -
-            450
+            Math.random() * 1800 -
+            900
           ) + "deg";
 
 
         const midRotation =
           (
-            Math.random() * 360 -
-            180
+            Math.random() * 720 -
+            360
           ) + "deg";
 
 
@@ -1736,9 +1854,103 @@
         );
 
 
+        emoji.addEventListener(
+          "animationend",
+          function() {
+
+            emoji.remove();
+
+          }
+        );
+
+
         emojiContainer.appendChild(
           emoji
         );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       ランダム演出ループ
+       
+       一定間隔ではなく、
+       毎回ランダムな時間で次の演出を発生させる。
+       ========================================================= */
+
+    let celebrationTimer = null;
+
+
+    function scheduleNextCelebration() {
+
+      const delay =
+        700 +
+        Math.random() * 2300;
+
+
+      celebrationTimer =
+        setTimeout(
+          function() {
+
+            if (
+              stage3.classList.contains(
+                "hidden"
+              )
+            ) {
+
+              return;
+
+            }
+
+
+            /*
+             * 紙吹雪と絵文字を
+             * 毎回ランダムな量で追加
+             */
+
+            spawnConfetti(
+              7 +
+              Math.floor(
+                Math.random() * 15
+              )
+            );
+
+
+            spawnFallingEmojis(
+              3 +
+              Math.floor(
+                Math.random() * 7
+              )
+            );
+
+
+            scheduleNextCelebration();
+
+          },
+          delay
+        );
+
+    }
+
+
+    /* =========================================================
+       演出停止
+       ========================================================= */
+
+    function stopCelebration() {
+
+      if (
+        celebrationTimer
+      ) {
+
+        clearTimeout(
+          celebrationTimer
+        );
+
+        celebrationTimer =
+          null;
 
       }
 
@@ -1751,9 +1963,31 @@
 
     function startCelebration() {
 
-      createConfetti();
+      stopCelebration();
 
-      createFallingEmojis();
+
+      confettiContainer.innerHTML =
+        "";
+
+      emojiContainer.innerHTML =
+        "";
+
+
+      /*
+       * 最初だけ少し豪快にドカン！
+       */
+
+      spawnConfetti(55);
+
+      spawnFallingEmojis(24);
+
+
+      /*
+       * その後はランダムタイミングで
+       * 延々と追加される。
+       */
+
+      scheduleNextCelebration();
 
     }
 
@@ -1826,6 +2060,14 @@
 
         return;
       }
+
+
+      /*
+       * 3ページ目ではないので
+       * ランダム演出ループを停止。
+       */
+
+      stopCelebration();
 
 
       /* =====================================================
@@ -1920,6 +2162,9 @@
        ========================================================= */
 
     function goBack() {
+
+      stopCelebration();
+
 
       sessionStorage.removeItem(
         MAIN_PLAYED
