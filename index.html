@@ -838,6 +838,21 @@
 
 
     /* =========================================================
+       真・隠しリンク
+       ========================================================= */
+
+    .secret-mark {
+      font-weight: 700;
+
+      text-decoration: none;
+
+      color: inherit;
+
+      -webkit-tap-highlight-color: transparent;
+    }
+
+
+    /* =========================================================
        メッセージ周辺の巨大キラキラ
        ========================================================= */
 
@@ -914,6 +929,117 @@
       z-index: 30;
 
       margin-top: 90px;
+    }
+
+
+    /* =========================================================
+       4ページ目
+       真・隠しページ
+       ========================================================= */
+
+    #stage4 {
+      min-height: 145svh;
+
+      position: relative;
+
+      background:
+        radial-gradient(
+          circle at 50% 35%,
+          #250000 0%,
+          #100000 35%,
+          #000 75%
+        );
+
+      color: #d40000;
+
+      text-align: center;
+
+      overflow: hidden;
+    }
+
+
+    .secret-warning {
+
+      width: min(84vw, 560px);
+
+      margin: 0 auto;
+
+      padding-top: 18vh;
+
+      font-family:
+        "Klee One",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        sans-serif;
+
+      font-size:
+        clamp(
+          16px,
+          4.2vw,
+          22px
+        );
+
+      font-weight: 600;
+
+      line-height: 2.15;
+
+      letter-spacing: .06em;
+
+      text-shadow:
+        0 0 5px rgba(255,0,0,.35),
+        0 0 14px rgba(255,0,0,.18);
+    }
+
+
+    .secret-watch-area {
+
+      height: 70svh;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      flex-direction: column;
+    }
+
+
+    .secret-watch {
+
+      color: #d40000;
+
+      font-family:
+        "Klee One",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        sans-serif;
+
+      font-size: 20px;
+
+      font-weight: 600;
+
+      letter-spacing: .15em;
+
+      text-decoration: none;
+
+      -webkit-tap-highlight-color: transparent;
+
+      text-shadow:
+        0 0 6px rgba(255,0,0,.5),
+        0 0 18px rgba(255,0,0,.25);
+
+      transition:
+        opacity .2s ease,
+        transform .2s ease;
+    }
+
+
+    .secret-watch:active {
+
+      opacity: .45;
+
+      transform: scale(.94);
     }
 
 
@@ -1449,7 +1575,10 @@
 
     <!-- メイン -->
     <div class="birthday-message">
-      誕生日おめでとう！
+      誕生日おめでとう<span
+        class="secret-mark"
+        id="secretMark"
+      >！</span>
     </div>
 
 
@@ -1461,6 +1590,52 @@
     >
       戻る
     </a>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       4ページ目
+       真・隠しページ
+       ========================================================= -->
+
+  <section
+    id="stage4"
+    class="hidden"
+  >
+
+    <div class="secret-warning">
+
+      よくぞこのリンクを見つけましたね。<br><br>
+
+      おめでとうございます。<br>
+
+      これは僕の好きなアーティストの<br>
+      MVへと繋がるリンクです。<br><br>
+
+      なお、本編との関連性は<br>
+      一切ありません。<br><br>
+
+      引き返すのなら、今のうちです。<br><br>
+
+      覚悟ができているのなら、<br>
+      下の「見る」を押してください。
+
+    </div>
+
+
+    <div class="secret-watch-area">
+
+      <a
+        id="secretWatch"
+        class="secret-watch"
+        href="#"
+      >
+        見る
+      </a>
+
+    </div>
 
   </section>
 
@@ -1481,6 +1656,14 @@
 
 
     /* =========================================================
+       真・隠しMV URL
+       ========================================================= */
+
+    const HIDDEN_ARTIST_URL =
+      "https://youtu.be/2YV6IJLoBv4?si=GJhV_NasgBiI-Udo";
+
+
+    /* =========================================================
        セッション状態管理
        ========================================================= */
 
@@ -1490,6 +1673,10 @@
 
     const SECRET_PLAYED =
       "birthday_secret_played";
+
+
+    const HIDDEN_SECRET =
+      "birthday_hidden_secret";
 
 
     const navigationEntry =
@@ -1519,6 +1706,11 @@
       );
 
 
+      sessionStorage.removeItem(
+        HIDDEN_SECRET
+      );
+
+
       localStorage.removeItem(
         MAIN_PLAYED
       );
@@ -1526,6 +1718,11 @@
 
       localStorage.removeItem(
         SECRET_PLAYED
+      );
+
+
+      localStorage.removeItem(
+        HIDDEN_SECRET
       );
 
     }
@@ -1553,6 +1750,12 @@
       );
 
 
+    const stage4 =
+      document.getElementById(
+        "stage4"
+      );
+
+
     const mainLink =
       document.getElementById(
         "mainLink"
@@ -1562,6 +1765,18 @@
     const secretLink =
       document.getElementById(
         "secretLink"
+      );
+
+
+    const secretMark =
+      document.getElementById(
+        "secretMark"
+      );
+
+
+    const secretWatch =
+      document.getElementById(
+        "secretWatch"
       );
 
 
@@ -1875,7 +2090,7 @@
 
     /* =========================================================
        ランダム演出ループ
-       
+
        一定間隔ではなく、
        毎回ランダムな時間で次の演出を発生させる。
        ========================================================= */
@@ -2010,6 +2225,12 @@
         ) === "true";
 
 
+      const hiddenSecret =
+        sessionStorage.getItem(
+          HIDDEN_SECRET
+        ) === "true";
+
+
       stage1.classList.add(
         "hidden"
       );
@@ -2025,6 +2246,11 @@
       );
 
 
+      stage4.classList.add(
+        "hidden"
+      );
+
+
       backLink2.classList.add(
         "hidden"
       );
@@ -2033,6 +2259,31 @@
       backLink3.classList.add(
         "hidden"
       );
+
+
+      /* =====================================================
+         真・隠しページ
+         ===================================================== */
+
+      if (
+        hiddenSecret
+      ) {
+
+        stage4.classList.remove(
+          "hidden"
+        );
+
+
+        document.body.style.overflowY =
+          "auto";
+
+
+        stopCelebration();
+
+
+        return;
+
+      }
 
 
       /* =====================================================
@@ -2158,6 +2409,54 @@
 
 
     /* =========================================================
+       真・隠しリンク
+       誕生日メッセージ最後の「！」
+       ========================================================= */
+
+    secretMark.addEventListener(
+      "click",
+      function(e) {
+
+        e.preventDefault();
+
+
+        sessionStorage.setItem(
+          HIDDEN_SECRET,
+          "true"
+        );
+
+
+        window.scrollTo(
+          0,
+          0
+        );
+
+
+        render();
+
+      }
+    );
+
+
+    /* =========================================================
+       真・隠しページ → YouTube
+       ========================================================= */
+
+    secretWatch.addEventListener(
+      "click",
+      function(e) {
+
+        e.preventDefault();
+
+
+        window.location.href =
+          HIDDEN_ARTIST_URL;
+
+      }
+    );
+
+
+    /* =========================================================
        最初に戻る
        ========================================================= */
 
@@ -2173,6 +2472,11 @@
 
       sessionStorage.removeItem(
         SECRET_PLAYED
+      );
+
+
+      sessionStorage.removeItem(
+        HIDDEN_SECRET
       );
 
 
