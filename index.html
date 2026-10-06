@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Klee+One:wght@400;600&family=Mochiy+Pop+One&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Klee+One:wght@400;600&family=Mochiy+Pop+One&family=Shippori+Mincho:wght@400;500;600&display=swap"
     rel="stylesheet"
   >
 
@@ -849,6 +849,8 @@
       color: inherit;
 
       -webkit-tap-highlight-color: transparent;
+
+      cursor: pointer;
     }
 
 
@@ -958,6 +960,10 @@
     }
 
 
+    /* =========================================================
+       真・隠しページ本文
+       ========================================================= */
+
     .secret-warning {
 
       width: min(84vw, 560px);
@@ -967,10 +973,8 @@
       padding-top: 18vh;
 
       font-family:
-        "Klee One",
-        "Hiragino Kaku Gothic ProN",
-        "Yu Gothic",
-        sans-serif;
+        "Shippori Mincho",
+        serif;
 
       font-size:
         clamp(
@@ -979,17 +983,21 @@
           22px
         );
 
-      font-weight: 600;
+      font-weight: 500;
 
       line-height: 2.15;
 
-      letter-spacing: .06em;
+      letter-spacing: .12em;
 
       text-shadow:
-        0 0 5px rgba(255,0,0,.35),
-        0 0 14px rgba(255,0,0,.18);
+        0 0 5px rgba(255,0,0,.45),
+        0 0 14px rgba(255,0,0,.25);
     }
 
+
+    /* =========================================================
+       真・隠しページ 見るエリア
+       ========================================================= */
 
     .secret-watch-area {
 
@@ -1002,6 +1010,8 @@
       align-items: center;
 
       flex-direction: column;
+
+      position: relative;
     }
 
 
@@ -1010,14 +1020,12 @@
       color: #d40000;
 
       font-family:
-        "Klee One",
-        "Hiragino Kaku Gothic ProN",
-        "Yu Gothic",
-        sans-serif;
+        "Shippori Mincho",
+        serif;
 
       font-size: 20px;
 
-      font-weight: 600;
+      font-weight: 500;
 
       letter-spacing: .15em;
 
@@ -1036,6 +1044,53 @@
 
 
     .secret-watch:active {
+
+      opacity: .45;
+
+      transform: scale(.94);
+    }
+
+
+    /* =========================================================
+       真・隠しページ 戻る
+       ========================================================= */
+
+    .secret-back {
+
+      position: absolute;
+
+      right: 8vw;
+
+      bottom: 8vh;
+
+      color: #d40000;
+
+      font-family:
+        "Shippori Mincho",
+        serif;
+
+      font-size: 20px;
+
+      font-weight: 500;
+
+      letter-spacing: .15em;
+
+      text-decoration: underline;
+      text-underline-offset: 4px;
+
+      -webkit-tap-highlight-color: transparent;
+
+      text-shadow:
+        0 0 6px rgba(255,0,0,.5),
+        0 0 18px rgba(255,0,0,.25);
+
+      transition:
+        opacity .2s ease,
+        transform .2s ease;
+    }
+
+
+    .secret-back:active {
 
       opacity: .45;
 
@@ -1611,7 +1666,7 @@
 
       おめでとうございます。<br>
 
-      これは僕の好きなアーティストの<br>
+      これはおれの好きなアーティストの<br>
       MVへと繋がるリンクです。<br><br>
 
       なお、本編との関連性は<br>
@@ -1633,6 +1688,15 @@
         href="#"
       >
         見る
+      </a>
+
+
+      <a
+        id="secretBack"
+        class="secret-back"
+        href="#"
+      >
+        戻る
       </a>
 
     </div>
@@ -1777,6 +1841,12 @@
     const secretWatch =
       document.getElementById(
         "secretWatch"
+      );
+
+
+    const secretBack =
+      document.getElementById(
+        "secretBack"
       );
 
 
@@ -2451,6 +2521,34 @@
 
         window.location.href =
           HIDDEN_ARTIST_URL;
+
+      }
+    );
+
+
+    /* =========================================================
+       真・隠しページ → 誕生日ページへ戻る
+       ========================================================= */
+
+    secretBack.addEventListener(
+      "click",
+      function(e) {
+
+        e.preventDefault();
+
+
+        sessionStorage.removeItem(
+          HIDDEN_SECRET
+        );
+
+
+        window.scrollTo(
+          0,
+          0
+        );
+
+
+        render();
 
       }
     );
